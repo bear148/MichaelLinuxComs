@@ -1,0 +1,12 @@
+#/bin/bash
+arg1=$1
+
+case $1 in
+	-h)
+		echo "Mike v1.0.0"
+		echo " -h - brings up help menu"
+		;;
+	*)
+		echo "Not valid!"
+		;;
+esac
