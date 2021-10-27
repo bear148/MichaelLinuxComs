@@ -1,12 +1,55 @@
 #/bin/bash
 arg1=$1
+. properties.config
+. dev/rand.txt
 
 case $1 in
 	-h)
 		echo "Mike v1.0.0"
-		echo " -h - brings up help menu"
+		echo " -h:  brings up help menu"
+		echo " -v:  mike version"
+		echo " -u:  uninstall mike"
+		echo " -r:  reload mike"
+		echo " -vi:  checks file for the word 'virus'"
 		;;
+	-u)
+		read -p "Are you sure you want to uninstall mike? (Y/n) " ans
+		if [ $ans == "Y" ]
+		then
+			echo "Uninstalling mike..."
+			rm $PWD/mike
+			echo "${successColor} Successful! ${reset}"
+			exit 0
+		elif [ $ans == "n" ]
+		then
+			echo "Backing out of uninstallation."
+		fi
+		;;
+	-r)
+		echo "Reloading mike v1.0.0..."
+		sh mike -4087123874
+		;;
+	-4087123874)
+		echo "${successColor}Mike v1.0.0 reloaded! ${reset}"
+		exit 0
+		;;
+	-vi)
+	if [ -r "$2" ]; then
+		if [ ! -z $(grep "virus" "$2") ]; then 
+			echo "Virus found!"
+		else
+			echo "No virus found!"
+		fi
+	else
+		echo "File doesn't exist or file not supplied!"
+	fi
+	;;
+	-v)
+	 	echo "Mike is currently version 1.0.0"
+	 	echo "Mike 1.0.0 was released October 26, 2021 6:57PM"
+	 	;;
 	*)
-		echo "Not valid!"
+		echo "Not valid argument!"
+		echo "Try 'mike -h' instead."
 		;;
 esac
